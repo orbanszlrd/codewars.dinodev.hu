@@ -1,0 +1,230 @@
+.container {
+    padding: 1rem 3rem;
+    background-color: #111;
+    color: lightgray;
+
+    @media only screen and (max-width: 800px) {
+        & {
+            padding: 1rem;
+        }
+    }
+
+    h3 {
+        margin: 1rem 0;
+    }
+
+    input[type=search] {
+        padding: .5rem;
+        width: 100%;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        outline: none;
+      }
+
+      .filter-container {
+        margin-top: 2rem;
+
+        @media only screen and (max-width: 800px) {
+            & {
+                margin-top: 1rem;
+            }
+        }
+    
+        > div {
+            background-color: whitesmoke;
+            border-radius: .5rem;
+            color: gray;
+
+            input[type=search] {
+                border: 1px solid silver;
+                box-shadow: 2px 2px 16px black;
+
+                &:focus {
+                    border-color: rgb(197,77,54);
+                }
+            }
+        }
+    }
+
+    .search-container {
+        float: right;
+        margin: 1rem 0;
+
+        input[type=search] {
+            display: inline-block;
+            border: 1px solid silver;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            width: auto;
+            box-shadow: 0 0 4px #333;
+
+            &:focus {
+                border-color: rgb(197,77,54);
+            }
+    }
+
+        a.button {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        @media only screen and (max-width: 800px) {
+            & {
+                float: none;
+            }
+        }
+    }
+
+    .user-container {
+        padding: 1rem;
+        background-image: linear-gradient(180deg, #222, #111);
+        border: 1px solid #333;
+        border-radius: .5rem;
+        box-shadow: 2px 2px 16px black;
+
+        div {
+            padding: .5rem;
+        }
+
+        .ranks {
+            position: absolute;
+            right: 200px;
+            top: 14rem;
+            z-index: 1;
+            background-image: linear-gradient(to bottom, #222, #111);
+            border-radius: .5rem;
+            border: 1px solid #333;
+      
+            div {
+                margin: .5rem;
+                padding: .5rem;
+                background-color: #222;
+                border: 2px solid currentColor;
+                border-radius: .5rem;
+                user-select: none;
+            }
+        }
+
+        .badge {
+            float:right;
+
+            @media only screen and (max-width: 800px) {
+                & {
+                    float: none;
+                }
+            }
+        }
+    }
+
+    .grid-container {
+        position: relative;
+        display: grid;
+        margin: 2rem 0;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 2rem;
+
+
+        @media only screen and (max-width: 800px) {
+            & {
+                margin: 1rem 0;
+                gap: 1rem;
+            }
+        }
+
+        article {
+            position: relative;
+            margin: 0;
+            padding: 0 0 1rem;
+            height: 240px;
+            background-image: linear-gradient(to bottom, #222, #111);
+            border: 1px solid #333;
+            border-radius: .5rem;
+            box-shadow: 2px 2px 16px black;
+
+            h5 {
+                margin: 0;
+                padding: 0 1rem .5rem;
+                margin-top: 1rem;
+                margin-bottom: 1rem; 
+                border-bottom: 1px solid #333;
+                font-weight: normal;
+
+                span {
+                    float: left;
+                    padding: .5rem;
+                    font-size: .8rem;
+                    margin: -.5rem;
+                    margin-right: 1rem;
+                    cursor: pointer;
+                    border: 2px solid;
+                    color: #333;
+                    border-radius: .5rem;
+                }
+
+                small {
+                    float: right;
+                    background-color: #111;
+                    box-shadow: 0 0 16px #333;
+                    margin: -.5rem;
+                    padding: .4rem;
+                    border-radius: .5rem;
+                    width: 3rem;
+                    text-align: center;
+                }
+            }
+
+            div {
+                padding: 0 1rem 1rem;
+
+                &.button-container {
+                    padding: 1rem;
+                    position: absolute;
+                    bottom: 0;
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    a.button {
+        display: inline-block;
+        padding: .5rem 1rem;
+        border: 1px solid rgb(187,67,44);
+        border-radius: .5rem;
+        background-image: linear-gradient(to bottom, rgb(187,67,44), rgb(167, 47, 24));
+        color: whitesmoke;
+        &:hover {
+            background-image: linear-gradient(to bottom, rgb(197,77,54), rgb(157,37,14));
+        }
+    }
+
+    div.error {
+        text-align: center;
+        font-size: 1.2rem;
+        padding: 4rem 2rem;
+
+        span {
+            vertical-align: top;
+            padding: .5rem;
+        }
+    }
+
+    @media only screen and (max-width: 1900px) {
+        .grid-container {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+    }
+    
+    @media only screen and (max-width: 1280px) {
+        .grid-container {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+    
+    @media only screen and (max-width: 800px) {
+        .grid-container {
+            grid-template-columns: 1fr;
+        }
+    }
+}
+
