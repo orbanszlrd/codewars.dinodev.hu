@@ -134,28 +134,39 @@ const Home: NextPage = ({
                   href={`https://www.codewars.com/users/${user.username}`}
                   target="_blank"
                   rel="noreferrer"
+                  style={{
+                    color: colors[user.ranks.overall.color],
+                    border: '2px solid currentColor',
+                    backgroundColor: '#111',
+                    marginRight: '.4rem',
+                    padding: '.4rem',
+                    borderRadius: '.5rem',
+                    userSelect: 'none',
+                  }}
                 >
-                  <Image
-                    src={`https://www.codewars.com/users/${user.username}/badges/large`}
-                    alt="Codewars badge"
-                    width={400}
-                    height={40}
-                  />
+                  <span>
+                    {`overall: ${
+                      user.ranks.overall.name
+                    } (${user.ranks.overall.score.toLocaleString()})`}
+                  </span>
+                </a>
+                <a
+                  title="Toggle Ranks"
+                  onClick={() => toggleRanks()}
+                  style={{
+                    cursor: 'pointer',
+                    float: 'right',
+                  }}
+                >
+                  <FaInfoCircle />
                 </a>
 
                 {rankDialog()}
               </div>
-              <div>
-                Name: {user.name}{' '}
-                <a
-                  title="Toggle Ranks"
-                  onClick={() => toggleRanks()}
-                  style={{ marginLeft: '.5rem', cursor: 'pointer' }}
-                >
-                  <FaInfoCircle />
-                </a>
-              </div>
+              <div>Name: {user.name}</div>
+              <div>Username: {user.username}</div>
               <div>Clan: {user.clan}</div>
+              <div>Honor: {user.honor.toLocaleString()}</div>
               <div>Leaderboard position: #{formatLeaderBoardPosition()}</div>
               <div>Completed Katas: {user.codeChallenges.totalCompleted}</div>
             </div>
