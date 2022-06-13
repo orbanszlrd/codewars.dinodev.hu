@@ -15,10 +15,9 @@ import {
 
 import styles from '../styles/Home.module.scss';
 import Date from '../components/date';
-import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { FaBan, FaInfoCircle } from 'react-icons/fa';
+import { FaBan, FaInfoCircle, FaAngleDown, FaAngleUp } from 'react-icons/fa';
 import Filter from '../components/filter';
 
 type KataDetails = {
@@ -134,23 +133,15 @@ const Home: NextPage = ({
                   href={`https://www.codewars.com/users/${user.username}`}
                   target="_blank"
                   rel="noreferrer"
-                  style={{
-                    color: colors[user.ranks.overall.color],
-                    border: '2px solid currentColor',
-                    backgroundColor: '#111',
-                    marginRight: '.4rem',
-                    padding: '.4rem',
-                    borderRadius: '.5rem',
-                    userSelect: 'none',
-                  }}
+                  style={{ color: colors[user.ranks.overall.color] }}
                 >
                   <span>
-                    {`overall: ${
+                    {`Rank: ${
                       user.ranks.overall.name
                     } (${user.ranks.overall.score.toLocaleString()})`}
                   </span>
                 </a>
-                <a
+                <span
                   title="Toggle Ranks"
                   onClick={() => toggleRanks()}
                   style={{
@@ -158,8 +149,8 @@ const Home: NextPage = ({
                     float: 'right',
                   }}
                 >
-                  <FaInfoCircle />
-                </a>
+                  {showRanks ? <FaAngleUp /> : <FaAngleDown />}
+                </span>
 
                 {rankDialog()}
               </div>

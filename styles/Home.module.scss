@@ -90,7 +90,7 @@
         .ranks {
             position: absolute;
             right: 65px;
-            top: 9.6rem;
+            top: 9.2rem;
             width: 265px;
             z-index: 1;
             background-image: linear-gradient(to bottom, #222, #111);
@@ -117,6 +117,14 @@
             padding: 1rem;
             width: 265px;
             border-color: 1px solid gray;
+
+            a {
+                margin-right: .4rem;
+                padding: .4rem;
+                border-radius: .5rem;
+                user-Select: none;
+                font-weight: bold;
+            }
 
             @media only screen and (max-width: 800px) {
                 & {
