@@ -1,4 +1,5 @@
 {
+  "homepage":"https://orbanszlrd.github.io/codewars",
   "name": "codewars",
   "version": "0.1.0",
   "private": true,
@@ -6,6 +7,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "lint": "next lint"
   },
   "dependencies": {
@@ -21,6 +24,7 @@
     "@types/react-dom": "18.0.5",
     "eslint": "8.17.0",
     "eslint-config-next": "12.1.6",
+    "gh-pages": "^4.0.0",
     "sass": "^1.52.3",
     "typescript": "4.7.3"
   }
