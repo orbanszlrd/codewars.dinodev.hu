@@ -69,7 +69,7 @@
             border-bottom-left-radius: 0;
         }
 
-        @media only screen and (max-width: 800px) {
+        @media only screen and (max-width: 600px) {
             & {
                 float: none;
             }
@@ -88,9 +88,8 @@
         }
 
         .ranks {
-            position: absolute;
-            right: 65px;
-            top: 9.2rem;
+            position: relative;
+            margin-left: -1rem;
             width: 265px;
             z-index: 1;
             background-image: linear-gradient(to bottom, #222, #111);
@@ -110,7 +109,8 @@
         }
 
         .badge {
-            float:right;
+            position: absolute;
+            right: 4rem;
             border: 1px solid #333;
             border-radius: .5rem;
             background-color: #222;
@@ -125,7 +125,7 @@
                 font-weight: bold;
             }
 
-            @media only screen and (max-width: 800px) {
+            @media only screen and (max-width: 600px) {
                 & {
                     float: none;
                 }

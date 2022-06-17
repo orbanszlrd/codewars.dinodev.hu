@@ -17,7 +17,7 @@ import styles from '../styles/Home.module.scss';
 import Date from '../components/date';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { FaBan, FaInfoCircle, FaAngleDown, FaAngleUp } from 'react-icons/fa';
+import { FaBan, FaAngleDown, FaAngleUp } from 'react-icons/fa';
 import Filter from '../components/filter';
 
 type KataDetails = {
@@ -105,6 +105,10 @@ const Home: NextPage = ({
     setShowRanks(!showRanks);
   };
 
+  const rankDialogToggler = () => {
+    return showRanks ? <FaAngleUp /> : <FaAngleDown />;
+  };
+
   return (
     <Layout>
       <Head>
@@ -149,9 +153,8 @@ const Home: NextPage = ({
                     float: 'right',
                   }}
                 >
-                  {showRanks ? <FaAngleUp /> : <FaAngleDown />}
+                  {rankDialogToggler()}
                 </span>
-
                 {rankDialog()}
               </div>
               <div>Name: {user.name}</div>
