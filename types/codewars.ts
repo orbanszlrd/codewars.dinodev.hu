@@ -5,7 +5,7 @@ export type UserResponse = {
   clan: string;
   leaderboardPosition: number;
   skills: string[];
-  ranks: unknown;
+  ranks: any;
   codeChallenges: { totalAuthored: number; totalCompleted: number };
 };
 
@@ -21,4 +21,14 @@ export type CodewarsKata = {
   slug: string;
   completedLanguages: string[];
   completedAt: string;
+};
+
+export type KataDetails = {
+  [key: string]: {
+    rank: {
+      name: string;
+      color: string;
+      score: number;
+    };
+  };
 };

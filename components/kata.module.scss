@@ -1,0 +1,65 @@
+.kata {
+    position: relative;
+    margin: 0;
+    padding: 0 0 1rem;
+    height: 240px;
+    background-image: linear-gradient(to bottom, #222, #111);
+    border: 1px solid #333;
+    border-radius: .5rem;
+    box-shadow: 2px 2px 16px black;
+
+    h5 {
+        margin: 0;
+        padding: 0 1rem .5rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem; 
+        border-bottom: 1px solid #333;
+        font-weight: normal;
+
+        span {
+            float: left;
+            padding: .5rem;
+            font-size: .8rem;
+            margin: -.5rem;
+            margin-right: 1rem;
+            cursor: pointer;
+            border: 2px solid;
+            color: #333;
+            border-radius: .5rem;
+        }
+
+        small {
+            float: right;
+            background-color: #111;
+            box-shadow: 0 0 16px #333;
+            margin: -.5rem;
+            padding: .4rem;
+            border-radius: .5rem;
+            width: 3rem;
+            text-align: center;
+        }
+    }
+
+    div {
+        padding: 0 1rem 1rem;
+
+        &.button-container {
+            padding: 1rem;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+    }
+
+    a.button {
+        display: inline-block;
+        padding: .5rem 1rem;
+        border: 1px solid rgb(187,67,44);
+        border-radius: .5rem;
+        background-image: linear-gradient(to bottom, rgb(187,67,44), rgb(167, 47, 24));
+        color: whitesmoke;
+        &:hover {
+            background-image: linear-gradient(to bottom, rgb(197,77,54), rgb(157,37,14));
+        }
+    }
+}

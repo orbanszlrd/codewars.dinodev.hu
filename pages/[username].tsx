@@ -10,25 +10,18 @@ import Layout from '../components/layout';
 import {
   CodewarsKata,
   CompletedKatasResponse,
+  KataDetails,
   UserResponse,
 } from '../types/codewars';
 
 import styles from '../styles/Home.module.scss';
-import Date from '../components/date';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { FaBan, FaAngleDown, FaAngleUp } from 'react-icons/fa';
+import { FaBan } from 'react-icons/fa';
 import Filter from '../components/filter';
-
-type KataDetails = {
-  [key: string]: {
-    rank: {
-      name: string;
-      color: string;
-      score: number;
-    };
-  };
-};
+import RankDialog from '../components/rank-dialog';
+import User from '../components/user';
+import Kata from '../components/kata';
 
 const Home: NextPage = ({
   user,
@@ -37,7 +30,6 @@ const Home: NextPage = ({
   const [username, setUsername] = useState(user.username);
   const [katas, setKatas] = useState(completedKatas.data);
   const [kataDetails, setKataDetails] = useState({} as KataDetails);
-  const [showRanks, setShowRanks] = useState(false);
   const [filter, setFilter] = useState('');
 
   const colors: { [key: string]: string } = {
@@ -72,43 +64,6 @@ const Home: NextPage = ({
       );
   };
 
-  const formatLeaderBoardPosition = () => {
-    return user.leaderboardPosition
-      ? user.leaderboardPosition.toLocaleString('en-US')
-      : '';
-  };
-
-  const rankDialog = () => {
-    const languages: {
-      string: { name: string; score: number; color: string };
-    } = user.ranks.languages;
-
-    return (
-      <div
-        className={styles.ranks}
-        style={{ display: showRanks ? 'block' : 'none' }}
-      >
-        {Object.entries(languages)
-          .sort((a, b) => b[1].score - a[1].score)
-          .map(([language, result]) => (
-            <div key={language} style={{ color: colors[result.color] }}>
-              <small>
-                {language} : {result.name} ({result.score})
-              </small>
-            </div>
-          ))}
-      </div>
-    );
-  };
-
-  const toggleRanks = () => {
-    setShowRanks(!showRanks);
-  };
-
-  const rankDialogToggler = () => {
-    return showRanks ? <FaAngleUp /> : <FaAngleDown />;
-  };
-
   return (
     <Layout>
       <Head>
@@ -132,37 +87,8 @@ const Home: NextPage = ({
         {user.username ? (
           <>
             <div className={styles['user-container']}>
-              <div className={styles.badge}>
-                <a
-                  href={`https://www.codewars.com/users/${user.username}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{ color: colors[user.ranks.overall.color] }}
-                >
-                  <span>
-                    {`Rank: ${
-                      user.ranks.overall.name
-                    } (${user.ranks.overall.score.toLocaleString()})`}
-                  </span>
-                </a>
-                <span
-                  title="Toggle Ranks"
-                  onClick={() => toggleRanks()}
-                  style={{
-                    cursor: 'pointer',
-                    float: 'right',
-                  }}
-                >
-                  {rankDialogToggler()}
-                </span>
-                {rankDialog()}
-              </div>
-              <div>Name: {user.name}</div>
-              <div>Username: {user.username}</div>
-              <div>Clan: {user.clan}</div>
-              <div>Honor: {user.honor.toLocaleString()}</div>
-              <div>Leaderboard position: #{formatLeaderBoardPosition()}</div>
-              <div>Completed Katas: {user.codeChallenges.totalCompleted}</div>
+              <RankDialog user={user} colors={colors} />
+              <User user={user} />
             </div>
 
             <div className={styles['filter-container']}>
@@ -175,45 +101,15 @@ const Home: NextPage = ({
 
             <div className={styles['grid-container']}>
               {katas.map((item: CodewarsKata, index: number) => (
-                <article key={item.id}>
-                  <h5 title={item.name}>
-                    {item.name.length > 30
-                      ? item.name.substring(0, 27) + '...'
-                      : item.name}
-
-                    <span
-                      style={{
-                        color: colors[kataDetails[item.id]?.rank.color],
-                      }}
-                      onClick={() => getKataDetails(item.id)}
-                    >
-                      {kataDetails && kataDetails[item.id]
-                        ? kataDetails[item.id].rank.name
-                        : '? kyu'}
-                    </span>
-
-                    <small>{katas.length - index}</small>
-                  </h5>
-
-                  <div>
-                    <span>Completed languages: </span>
-                    <b>{item.completedLanguages.join(', ')}</b>
-                  </div>
-                  <div>
-                    <span>Completed At: </span>
-                    <Date dateString={item.completedAt} />
-                  </div>
-                  <div className={styles['button-container']}>
-                    <a
-                      className={styles.button}
-                      href={`https://www.codewars.com/kata/${item.slug}`}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Open
-                    </a>
-                  </div>
-                </article>
+                <React.Fragment key={index}>
+                  <Kata
+                    kata={item}
+                    color={colors[kataDetails[item.id]?.rank.color]}
+                    rank={kataDetails[item.id]?.rank.name}
+                    nr={katas.length - index}
+                    getKataDetails={getKataDetails}
+                  />
+                </React.Fragment>
               ))}
             </div>
           </>

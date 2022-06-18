@@ -1,0 +1,45 @@
+.badge {
+    position: absolute;
+    right: 4rem;
+    border: 1px solid #333;
+    border-radius: .5rem;
+    background-color: #222;
+    padding: 1rem;
+    width: 265px;
+ 
+    a {
+        margin-right: .4rem;
+        padding: .4rem;
+        border-radius: .5rem;
+        user-Select: none;
+        font-weight: bold;
+    }
+
+    @media only screen and (max-width: 600px) {
+        & {
+            float: none;
+        }
+    }
+}
+
+.ranks {
+    position: relative;
+    margin-left: -1.05rem;
+    padding: 0.5rem;
+    width: 265px;
+    z-index: 1;
+    background-image: linear-gradient(to bottom, #222, #111);
+    border-bottom-left-radius: .5rem;
+    border-bottom-right-radius: .5rem;
+    border: 1px solid #333;
+    border-top: 0;
+
+    div {
+        margin: .5rem;
+        padding: .5rem;
+        background-color: #222;
+        border: 2px solid currentColor;
+        border-radius: .5rem;
+        user-select: none;
+    }
+}
