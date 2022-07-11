@@ -15,19 +15,21 @@ import {
 } from '../types/codewars';
 
 import styles from '../styles/Home.module.scss';
-import React, { useEffect, useState } from 'react';
+import React, { KeyboardEvent, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { FaBan } from 'react-icons/fa';
 import Filter from '../components/filter';
 import RankDialog from '../components/rank-dialog';
 import User from '../components/user';
 import Kata from '../components/kata';
 import NoUser from '../components/no-user';
+import { useRouter } from 'next/router';
 
 const Home: NextPage = ({
   user,
   completedKatas,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const router = useRouter();
+
   const [username, setUsername] = useState(user.username);
   const [katas, setKatas] = useState(completedKatas.data);
   const [kataDetails, setKataDetails] = useState({} as KataDetails);
@@ -65,10 +67,16 @@ const Home: NextPage = ({
       );
   };
 
+  const searchUser = (event: KeyboardEvent<HTMLInputElement>) =>  {
+    if (event.key === 'Enter') {
+      router.push(`/${event.currentTarget.value}`);
+    }
+;  }
+
   return (
     <Layout>
       <Head>
-        <title>Codewars</title>
+        <title>Codewars Progress</title>
         <meta name="description" content="Codewars" />
       </Head>
 
@@ -79,12 +87,13 @@ const Home: NextPage = ({
             placeholder="username"
             value={username}
             onChange={(event) => setUsername(event?.target.value)}
+            onKeyUp={(event: KeyboardEvent<HTMLInputElement>) => searchUser(event)}
           />
           <Link href={`/${username}`}>
             <a className={styles.button}>Search</a>
           </Link>
         </div>
-        <h3>Codewars</h3>
+        <h3>Codewars Progress</h3>
         {user.username ? (
           <>
             <div className={styles['user-container']}>
