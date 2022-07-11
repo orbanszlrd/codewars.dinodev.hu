@@ -22,6 +22,7 @@ import Filter from '../components/filter';
 import RankDialog from '../components/rank-dialog';
 import User from '../components/user';
 import Kata from '../components/kata';
+import NoUser from '../components/no-user';
 
 const Home: NextPage = ({
   user,
@@ -101,28 +102,19 @@ const Home: NextPage = ({
 
             <div className={styles['grid-container']}>
               {katas.map((item: CodewarsKata, index: number) => (
-                <React.Fragment key={index}>
                   <Kata
+                    key={index}
                     kata={item}
                     color={colors[kataDetails[item.id]?.rank.color]}
                     rank={kataDetails[item.id]?.rank.name}
                     nr={katas.length - index}
                     getKataDetails={getKataDetails}
                   />
-                </React.Fragment>
               ))}
             </div>
           </>
-        ) : (
-          <div className={styles['user-container']}>
-            <div className={styles.error}>
-              <span>
-                <FaBan />
-              </span>
-              <span>No user with the given username</span>
-            </div>
-          </div>
-        )}
+        ) : <NoUser />
+        }
       </div>
     </Layout>
   );
@@ -152,10 +144,16 @@ export const getServerSideProps: GetServerSideProps = async (
     katasUrl = `${apiUrl}${username}/code-challenges/completed?page=${page++}`;
     result = await fetch(katasUrl);
 
-    const nextPage = await result.json();
+    const nextPage: CompletedKatasResponse = await result.json();
 
     completedKatas.data = [...completedKatas.data, ...nextPage.data];
   }
+
+  completedKatas.data && completedKatas.data.forEach(kata => {
+    if (kata.name === undefined) {
+      kata.name =  '[Unknown]';
+    }
+  });
 
   return {
     props: {
