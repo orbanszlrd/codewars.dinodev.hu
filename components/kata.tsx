@@ -20,8 +20,7 @@ const Kata: FunctionComponent<KataProps> = ({
 }) => {
   return (
     <article className={styles.kata}>
-      <h5 title={kata.name}>
-        {kata.name.length > 30 ? kata.name.substring(0, 27) + '...' : kata.name}
+      <header>
         <span
           style={{
             color: color ? color : '',
@@ -30,8 +29,13 @@ const Kata: FunctionComponent<KataProps> = ({
         >
           {rank ? rank : '? kyu'}
         </span>
+
+        <h5 title={kata.name}>
+          {kata.name.length > 300 ? kata.name.substring(0, 27) + '...' : kata.name}
+        </h5>
+
         <small>{nr}</small>
-      </h5>
+      </header>
 
       <div>
         <span>Completed languages: </span>
