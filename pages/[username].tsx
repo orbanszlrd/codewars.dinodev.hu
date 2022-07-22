@@ -15,7 +15,7 @@ import {
 } from '../types/codewars';
 
 import styles from '../styles/Home.module.scss';
-import React, { KeyboardEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
 import Link from 'next/link';
 import Filter from '../components/filter';
 import RankDialog from '../components/rank-dialog';
@@ -51,9 +51,9 @@ const Home: NextPage = ({
               kata.completedLanguages
                 .join(', ')
                 .toLowerCase()
-                .includes(filter.toLowerCase())
+                .includes(filter.toLowerCase()),
           )
-        : []
+        : [],
     );
   }, [completedKatas, filter]);
 
@@ -63,15 +63,15 @@ const Home: NextPage = ({
     fetch(url)
       .then((result) => result.json())
       .then((result) =>
-        setKataDetails({ ...kataDetails, [result.id]: result })
+        setKataDetails({ ...kataDetails, [result.id]: result }),
       );
   };
 
-  const searchUser = (event: KeyboardEvent<HTMLInputElement>) =>  {
+  const searchUser = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       router.push(`/${event.currentTarget.value}`);
     }
-;  }
+  };
 
   return (
     <Layout>
@@ -86,8 +86,12 @@ const Home: NextPage = ({
             type="search"
             placeholder="username"
             value={username}
-            onChange={(event) => setUsername(event?.target.value)}
-            onKeyUp={(event: KeyboardEvent<HTMLInputElement>) => searchUser(event)}
+            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+              setUsername(event.target.value)
+            }
+            onKeyUp={(event: KeyboardEvent<HTMLInputElement>) =>
+              searchUser(event)
+            }
           />
           <Link href={`/${username}`}>
             <a className={styles.button}>Search</a>
@@ -111,19 +115,20 @@ const Home: NextPage = ({
 
             <div className={styles['grid-container']}>
               {katas.map((item: CodewarsKata, index: number) => (
-                  <Kata
-                    key={index}
-                    kata={item}
-                    color={colors[kataDetails[item.id]?.rank.color]}
-                    rank={kataDetails[item.id]?.rank.name}
-                    nr={katas.length - index}
-                    getKataDetails={getKataDetails}
-                  />
+                <Kata
+                  key={index}
+                  kata={item}
+                  color={colors[kataDetails[item.id]?.rank.color]}
+                  rank={kataDetails[item.id]?.rank.name}
+                  nr={katas.length - index}
+                  getKataDetails={getKataDetails}
+                />
               ))}
             </div>
           </>
-        ) : <NoUser />
-        }
+        ) : (
+          <NoUser />
+        )}
       </div>
     </Layout>
   );
@@ -132,7 +137,7 @@ const Home: NextPage = ({
 export default Home;
 
 export const getServerSideProps: GetServerSideProps = async (
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ) => {
   const apiUrl = 'https://www.codewars.com/api/v1/users/';
   const username = context.params?.username;
@@ -158,11 +163,12 @@ export const getServerSideProps: GetServerSideProps = async (
     completedKatas.data = [...completedKatas.data, ...nextPage.data];
   }
 
-  completedKatas.data && completedKatas.data.forEach(kata => {
-    if (kata.name === undefined) {
-      kata.name =  '[Unknown]';
-    }
-  });
+  completedKatas.data &&
+    completedKatas.data.forEach((kata) => {
+      if (kata.name === undefined) {
+        kata.name = '[Unknown]';
+      }
+    });
 
   return {
     props: {

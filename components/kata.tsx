@@ -23,17 +23,13 @@ const Kata: FunctionComponent<KataProps> = ({
       <header>
         <span
           style={{
-            color: color ? color : '',
+            color: color ?? '',
           }}
           onClick={() => getKataDetails(kata.id)}
         >
-          {rank ? rank : '? kyu'}
+          {rank ?? '? kyu'}
         </span>
-
-        <h5 title={kata.name}>
-          {kata.name.length > 300 ? kata.name.substring(0, 27) + '...' : kata.name}
-        </h5>
-
+        <h5>{kata.name}</h5>
         <small>{nr}</small>
       </header>
 
