@@ -5,7 +5,7 @@ import styles from './kata.module.scss';
 
 export interface KataProps {
   kata: CodewarsKata;
-  color: string;
+  color: string | undefined;
   rank: string;
   nr: number;
   getKataDetails: Function;
@@ -23,7 +23,7 @@ const Kata: FunctionComponent<KataProps> = ({
       <header>
         <span
           style={{
-            color: color ?? '',
+            color: color,
           }}
           onClick={() => getKataDetails(kata.id)}
         >
